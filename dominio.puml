@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+object Edificio{
+    Nombre
+    Dirección
+    Pisos
+}
+object Departamento{
+    Numero
+    Piso
+}
+object Dueño{
+    Nombre
+    RUT
+    Correo
+}
+object Contrato{
+    Dueño
+    Departamento
+    Fecha de pago
+}
+
+Contrato --> Dueño : tiene
+Contrato --> Departamento : contempla
+Dueño --> Departamento : posee
+Departamento --> Edificio : forma
+@enduml
