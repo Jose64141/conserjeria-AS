@@ -16,13 +16,16 @@ object Dueño{
     Correo
 }
 object Contrato{
-    Dueño
-    Departamento
     Fecha de pago
 }
+object Comprobante{
+    Fecha de pago
+    Monto
+}
 
-Contrato --> Dueño : tiene
-Contrato --> Departamento : contempla
-Dueño --> Departamento : posee
-Departamento --> Edificio : forma
+Comprobante "1" --> "1" Contrato : se asocia a
+Comprobante "*" <-- "1" Dueño : paga
+Contrato "1..*" --> "1" Dueño : tiene
+Dueño "0..*" --> "1" Departamento : posee
+Departamento "0..*" --> "1" Edificio : forma
 @enduml
