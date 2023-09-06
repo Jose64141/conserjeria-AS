@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class BaseModel{
+
+}
+
+interface Sistema{
+    + agregarEdificio(edificio: Edificio): Edificio
+    + agregarDepartamento(departamento: Departamento, edificio: Edificio): Edificio
+    + agregarDueño(dueño: Persona, departamento: Departamento): Edificio
+    + realizarContrato(edificio: Edificio): Edificio
+}
+
+class Persona{
+    - rut : String
+    - rut : String
+    - rut : String
+    - rut : String
+    - rut : String
+}
+class Edificio{
+    - nombre : String
+    - direccion : String
+    - pisos : Integer
+}
+class Departamento{
+    - numero : String
+    - piso : String
+}
+class Contrato{
+    - fechaPago : Instant
+}
+class Pago{
+    - fecha : Instant
+    - monto : Integer
+}
+
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+Object[] elementData
+size()
+}
+
+enum TimeUnit {
+DAYS
+HOURS
+MINUTES
+}
+
+@enduml

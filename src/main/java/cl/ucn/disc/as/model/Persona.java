@@ -4,6 +4,8 @@
 
 package cl.ucn.disc.as.model;
 
+import cl.ucn.disc.as.model.exception.IllegalDomainException;
+import cl.ucn.disc.as.utils.ValidationUtils;
 import io.ebean.annotation.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +28,7 @@ public class Persona extends BaseModel {
      * The RUT.
      */
     @NotNull
-    private Integer rut;
+    private String rut;
 
     /**
      * The Nombre.
@@ -52,4 +54,34 @@ public class Persona extends BaseModel {
     @NotNull
     private String telefono;
 
+    /**
+     * Custom builder for validations.
+     */
+    public static class PersonaBuilder{
+
+        /**
+         *
+         * @return the Persona.
+         */
+        public Persona build(){
+
+            // validate the rut
+            if (!ValidationUtils.isRutValid(this.rut)){
+                throw new IllegalDomainException("RUT not valid: " + this.rut);
+            }
+
+            // validate the email
+            if (!ValidationUtils.isEmailValid(this.email)){
+                throw new IllegalDomainException("Email not valid: " + this.email);
+            }
+
+            // TODO: validate other fields
+
+            return new Persona(this.rut,
+                    this.nombre,
+                    this.apellidos,
+                    this.email,
+                    this.telefono);
+        }
+    }
 }
