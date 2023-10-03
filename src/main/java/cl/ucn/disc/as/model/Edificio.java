@@ -7,6 +7,7 @@ package cl.ucn.disc.as.model;
 import io.ebean.annotation.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
@@ -25,19 +26,14 @@ public class Edificio extends BaseModel {
     /**
      * The Dirección.
      */
+    @Getter
     @NotNull
     private String direccion;
 
     /**
      * The Nombre.
      */
+    @Getter
     @NotNull
     private String nombre;
-
-    /**
-     * The Pisos.
-     */
-    @NotNull
-    private Integer pisos;
-
 }

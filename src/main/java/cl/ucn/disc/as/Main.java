@@ -1,7 +1,10 @@
 package cl.ucn.disc.as;
 
 import cl.ucn.disc.as.dao.PersonaFinder;
+import cl.ucn.disc.as.model.Edificio;
 import cl.ucn.disc.as.model.Persona;
+import cl.ucn.disc.as.services.Sistema;
+import cl.ucn.disc.as.services.SistemaImpl;
 import io.ebean.DB;
 import io.ebean.Database;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +26,12 @@ public final class Main {
         // Get the database
         Database db = DB.getDefault();
 
-        // Build the person
+        /* / Build the person
         Persona persona = Persona.builder()
                 .apellidos("Alc Mar")
                 .nombre("Joses")
                 .email("a@aol.com")
-                .rut(123)
+                .rut("123")
                 .telefono("+56123")
                 .build();
         log.debug("Created Persona ${}", persona);
@@ -41,7 +44,19 @@ public final class Main {
         PersonaFinder finder = new PersonaFinder();
         Optional<Persona> result = finder.byRut(123);
         result.ifPresent(p -> log.debug("Persona ${}", p));
+        */
 
+        // Instantiate impl
+        Sistema sistema = new SistemaImpl(db);
+
+        Edificio edif = Edificio.builder()
+                .nombre("Y1")
+                .direccion("Angamos 610")
+                .build();
+        log.debug("Edif");
+        log.debug("a {}",edif);
+        edif = sistema.add(edif);
+        log.debug("a {}",edif);
         log.debug("Done");
     }
 }
