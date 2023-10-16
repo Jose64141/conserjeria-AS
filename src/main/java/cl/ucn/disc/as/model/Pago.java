@@ -11,9 +11,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import java.time.Instant;
 
 /**
- * The Departamento class.
+ * The Pago class.
  *
  * @author José Alcayaga.
  */
@@ -22,17 +23,17 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Departamento extends BaseModel {
+public class Pago extends BaseModel {
 
     /**
-     * The Número.
+     * The Fecha de Pago.
      */
     @NotNull
-    private Integer numero;
+    private Instant fechaPago;
 
     /**
-     * The Piso.
+     * The Monto.
      */
     @NotNull
-    private Integer piso;
+    private Integer monto;
 }

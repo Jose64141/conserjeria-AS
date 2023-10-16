@@ -1,6 +1,6 @@
 package cl.ucn.disc.as;
 
-import cl.ucn.disc.as.dao.PersonaFinder;
+import cl.ucn.disc.as.model.Departamento;
 import cl.ucn.disc.as.model.Edificio;
 import cl.ucn.disc.as.model.Persona;
 import cl.ucn.disc.as.services.Sistema;
@@ -9,7 +9,7 @@ import io.ebean.DB;
 import io.ebean.Database;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
+import java.time.Instant;
 
 /**
  *
@@ -26,28 +26,18 @@ public final class Main {
         // Get the database
         Database db = DB.getDefault();
 
-        /* / Build the person
+        // Instantiate impl
+        Sistema sistema = new SistemaImpl(db);
+
         Persona persona = Persona.builder()
                 .apellidos("Alc Mar")
                 .nombre("Joses")
                 .email("a@aol.com")
-                .rut("123")
+                .rut("11111111-1")
                 .telefono("+56123")
                 .build();
-        log.debug("Created Persona ${}", persona);
-
-        // Save person to database
-        db.save(persona);
-        log.debug("Saved Persona ${}", persona);
-
-        // Search created person
-        PersonaFinder finder = new PersonaFinder();
-        Optional<Persona> result = finder.byRut(123);
-        result.ifPresent(p -> log.debug("Persona ${}", p));
-        */
-
-        // Instantiate impl
-        Sistema sistema = new SistemaImpl(db);
+        sistema.add(persona);
+        log.debug("Done");
 
         Edificio edif = Edificio.builder()
                 .nombre("Y1")
@@ -57,6 +47,29 @@ public final class Main {
         log.debug("a {}",edif);
         edif = sistema.add(edif);
         log.debug("a {}",edif);
+        log.debug("Done");
+
+        Departamento dep = Departamento.builder()
+                .numero(100)
+                .piso(1)
+                .build();
+        dep = sistema.addDepartamento(dep, edif);
+        log.debug("d {}",dep);
+
+
+        Departamento dep2 = Departamento.builder()
+                .numero(101)
+                .piso(2)
+                .build();
+        dep2 = sistema.addDepartamento(dep2, edif.getId());
+        log.debug("d {}",dep2);
+
+        sistema.realizarContrato(persona, dep, Instant.now());
+        sistema.realizarContrato(persona.getId(), dep2.getId(), Instant.now());
+
+        log.debug("Contratos {}", sistema.getContratos());
+        log.debug("Personas {}", sistema.getPersonas());
+        log.debug("Pagos {}", sistema.getPagos("11111111-1"));
         log.debug("Done");
     }
 }

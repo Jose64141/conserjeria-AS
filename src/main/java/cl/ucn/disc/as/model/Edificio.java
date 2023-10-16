@@ -10,13 +10,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * The Edificio class.
  *
  * @author José Alcayaga.
  */
+@Getter
 @ToString(callSuper = true)
 @AllArgsConstructor
 @Builder
@@ -24,16 +28,29 @@ import javax.persistence.Entity;
 public class Edificio extends BaseModel {
 
     /**
+     * The Nombre.
+     */
+    @NotNull
+    private String nombre;
+
+    /**
      * The Dirección.
      */
-    @Getter
     @NotNull
     private String direccion;
 
     /**
-     * The Nombre.
+     * The Departamentos of the Edificio
      */
-    @Getter
-    @NotNull
-    private String nombre;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Departamento> departamentos;
+
+    /**
+     * Adds a Departamento to the Edificio
+     * @param departamento to add
+     */
+    public void add(Departamento departamento)
+    {
+        departamentos.add(departamento);
+    }
 }

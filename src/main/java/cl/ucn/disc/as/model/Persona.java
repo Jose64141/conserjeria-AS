@@ -9,6 +9,7 @@ import cl.ucn.disc.as.utils.ValidationUtils;
 import io.ebean.annotation.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.Entity;
  *
  * @author Diego Urrutia-Astorga.
  */
+@Getter
 @ToString(callSuper = true)
 @AllArgsConstructor
 @Builder
