@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.PersistenceException;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * System Implementation
@@ -205,4 +206,19 @@ public class SistemaImpl implements Sistema {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
+    @Override
+    public Optional<Persona> getPersona(String rut) {
+        try{
+            return new PersonaFinder().byRut(rut);
+        }
+        catch (PersistenceException ex){
+            log.error("Error", ex);
+            throw new SistemaException("Error al obtener persona", ex);
+        }
+    }
 }

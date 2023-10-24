@@ -4,6 +4,7 @@ import cl.ucn.disc.as.model.*;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * System operations.
@@ -83,4 +84,12 @@ public interface Sistema {
      * @return
      */
     List<Pago> getPagos(String rut);
+
+    /**
+     * Obtener persona dado su RUT.
+     *
+     * @param rut de la persona a consultar.
+     * @return
+     */
+    Optional<Persona> getPersona(String rut);
 }
