@@ -92,6 +92,7 @@ public final class ApiRestServer {
             config.requestLogger.http((ctx, ms) -> {
                 log.info("{} {} in {} ms.", ctx.method(), ctx.fullUrl(), ms);
             });
+            config.plugins.enableDevLogging();
         });
     }
 
@@ -100,7 +101,7 @@ public final class ApiRestServer {
      * @param port to use
      * @param routesConfigurator
      */
-    public static void start(final Integer port, final RoutesConfigurator routesConfigurator){
+    public static Javalin start(final Integer port, final RoutesConfigurator routesConfigurator){
         if (port < 1024 || port > 65535) {
             log.error("Bad port: {}", port);
             throw new IllegalArgumentException("Port must be between 1024 and 65535");
@@ -129,6 +130,6 @@ public final class ApiRestServer {
             });
         });
 
-        app.start(port);
+        return app.start(port);
     }
 }

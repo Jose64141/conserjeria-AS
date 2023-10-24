@@ -10,6 +10,7 @@ import cl.ucn.disc.as.ui.RoutesConfigurator;
 import cl.ucn.disc.as.ui.WebController;
 import io.ebean.DB;
 import io.ebean.Database;
+import io.javalin.Javalin;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
@@ -27,7 +28,10 @@ public final class Main {
 
         log.debug("Starting Main ..");
 
-        ApiRestServer.start(7070, new WebController());
+        Javalin app = ApiRestServer.start(7070, new WebController());
+
+        //log.debug("Stopping ..");
+        //app.stop();
 
         log.debug("Done.");
     }
