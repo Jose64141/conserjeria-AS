@@ -28,6 +28,7 @@ ext {
     lombokVersion = '1.18.30'
     ebeanVersion = '13.23.1'
     sqliteVersion = '3.43.2.1'
+    javafakerVersion = '1.0.2'
     javalinVersion = '5.6.3'
     junitVersion = '5.10.0'
     loggerVersion = '1.4.11'
@@ -61,6 +62,9 @@ dependencies {
 
     // web: javalin
     implementation "io.javalin:javalin:${javalinVersion}"
+
+    // faker
+    implementation "com.github.javafaker:javafaker:${javafakerVersion}"
 
     // lombok
     compileOnly "org.projectlombok:lombok:${lombokVersion}"

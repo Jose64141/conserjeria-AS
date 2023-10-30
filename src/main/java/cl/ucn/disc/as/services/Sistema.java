@@ -92,4 +92,9 @@ public interface Sistema {
      * @return
      */
     Optional<Persona> getPersona(String rut);
+
+    /**
+     * Pobla la base de datos con datos semilla.
+     */
+    public void populate();
 }

@@ -18,7 +18,8 @@ public final class WebController implements RoutesConfigurator {
 
     public WebController() {
         this.sistema = new SistemaImpl(DB.getDefault());
-
+        // FIXME: Populate only on new database
+        this.sistema.populate();
     }
 
     /**

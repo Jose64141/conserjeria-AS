@@ -3,6 +3,10 @@ package cl.ucn.disc.as.services;
 import cl.ucn.disc.as.dao.*;
 import cl.ucn.disc.as.exceptions.SistemaException;
 import cl.ucn.disc.as.model.*;
+import cl.ucn.disc.as.utils.ValidationUtils;
+import com.github.javafaker.Faker;
+import com.github.javafaker.service.FakeValuesService;
+import com.github.javafaker.service.RandomService;
 import io.ebean.Database;
 import io.ebean.Transaction;
 import org.jetbrains.annotations.NotNull;
@@ -11,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.PersistenceException;
 import java.time.Instant;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -219,6 +224,29 @@ public class SistemaImpl implements Sistema {
         catch (PersistenceException ex){
             log.error("Error", ex);
             throw new SistemaException("Error al obtener persona", ex);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void populate() {
+        Locale locale = new Locale("es-CL");
+        FakeValuesService fvs = new FakeValuesService(locale, new RandomService());
+        Faker faker = new Faker(locale);
+
+        for (int i = 0; i < 1000; i++) {
+            String rut = fvs.bothify("########");
+            String dv = ValidationUtils.dv(rut);
+            Persona persona = Persona.builder()
+                    .rut(rut + "-" + dv)
+                    .nombre(faker.name().firstName())
+                    .apellidos(faker.name().lastName())
+                    .email(faker.internet().emailAddress())
+                    .telefono(fvs.bothify("+569########"))
+                    .build();
+            this.add(persona);
         }
     }
 }
