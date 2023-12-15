@@ -6,6 +6,9 @@ services:
         restart: always
         container_name: "conserjeria"
         tty: true
+        environment:
+            DB_PLATFORM: sqlite
+            DB_URL: jdbc:sqlite:conserjeria.db
         ports:
             - "7070:7070"
         networks:
