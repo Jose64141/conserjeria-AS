@@ -134,3 +134,7 @@ jar {
         attributes 'Main-Class': 'cl.ucn.disc.as.Main'
     }
 }
+
+shadowJar {
+    mergeServiceFiles()
+}
